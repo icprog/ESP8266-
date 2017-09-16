@@ -19,10 +19,16 @@ namespace ESP8266
 
         }
 
-        public const string BaudRate = "AT+CIOBAUD=";
-   
-        public const string Ap_ip = "AT+CIPAP=";
-        public const string Sta_ip = "AT+CIPSTA=";
+        public readonly string BaudRate = "AT+CIOBAUD=";
+
+        public string Ap_ip(string  ip)
+        {
+            return "AT+CIPAP=" + "\"" + ip + "\"";
+        }
+
+
+
+        public readonly string Sta_ip = "AT+CIPSTA=";
         //AT+CWJAP="ESP8266","0123456789"
         private const string _JionWifi = "AT+CWJAP=";
 
@@ -62,15 +68,12 @@ namespace ESP8266
 
         public string Ap_StartServer(int port)
         {
-            return _Ap_StartServer + port;
+            return _Ap_StartServer +","+ port;
         }
 
-        private string _Ap_StopServer = "AT+CIPSERVER=0";
+        public readonly string Ap_StopServer = "AT+CIPSERVER=0";
 
-        public string Ap_StopServer(int port)
-        {
-            return _Ap_StopServer + port;
-        }
+      
         /// <summary>
         /// AT+CIPSTO=180,服务器超时时间
         /// </summary>
@@ -87,28 +90,28 @@ namespace ESP8266
 
         }
 
-        public const string MutiLink = "AT+CIPMUX=1";
-        public const string SingleLink = "AT+CIPMUX=0";
+        public readonly string MutiLink = "AT+CIPMUX=1";
+        public readonly string SingleLink = "AT+CIPMUX=0";
 
         /// <summary>
         /// AT+CIFSR 查询自身IP地址
         /// </summary>
-        public const string QueryIP = "AT+CIFSR";
+        public readonly string QueryIP = "AT+CIFSR";
 
-        public const string Reset = "AT+RST";
+        public readonly string ReBoot = "AT+RST";
 
         /// <summary>
         /// AT+CIPMODE=0 非穿透模式
         /// </summary>
-        public const string Penetrate = "AT+CIPMODE=0";
+        public readonly string Penetrate = "AT+CIPMODE=0";
         /// <summary>
         /// AT+CIPMODE=1 穿透模式
         /// </summary>
-        public const string PenetrateNot = "AT+CIPMODE=1";
+        public readonly string PenetrateNot = "AT+CIPMODE=1";
 
         /// <summary>
         /// 查询服务超时时间
         /// </summary>
-        public const string QueryTimeout= "AT+CIPSTO?";
+        public readonly string QueryTimeout= "AT+CIPSTO?";
     }
 }

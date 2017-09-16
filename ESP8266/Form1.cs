@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,6 +30,7 @@ namespace ESP8266
             comWorkWay.SelectedIndex = 0;
             comBaudRate.SelectedIndex = 0;
             ScanCom();
+            
         }
 
         private void BtnScanCom_Click(object sender, EventArgs e)
@@ -45,12 +47,13 @@ namespace ESP8266
             foreach (string com in System.IO.Ports.SerialPort.GetPortNames())
             {
                 this.comPortName.Items.Add(com);
+                comSetPort.Items.Add(com);
             }
 
             if (comPortName.Items.Count > 0)
             {
                 comPortName.SelectedIndex = 0;
-
+                comSetPort.SelectedIndex = 0;
             }
         }
 
@@ -98,17 +101,25 @@ namespace ESP8266
         private void btnSetWorkWay_Click(object sender, EventArgs e)
         {
 
-            DataTransform(serialPort1, AT.WorkWay(comWorkWay.SelectedIndex + 1));
+            ComDataTransform(serialPort1, AT.WorkWay(comWorkWay.SelectedIndex + 1));
             
         }
 
-        private void DataTransform(SerialPort port,string strWitr)
+        private void ComDataTransform(SerialPort port,string strWitr)
         {
-            txtComWrite.Text += strWitr+Environment.NewLine;
-            port.WriteLine(strWitr + Environment.NewLine);
-            //port.Write(strWitr);
-            Thread.Sleep(20);
-            txtComRead.Text +=  port.ReadExisting()+ Environment.NewLine;
+            if (port.IsOpen)
+            {
+                txtComWrite.Text += strWitr + Environment.NewLine;
+                port.WriteLine(strWitr + Environment.NewLine);
+                //port.Write(strWitr);
+             
+                Thread.Sleep(200);
+                txtComRead.Text += port.ReadExisting() + Environment.NewLine;
+            }
+            else
+            {
+                MessageBox.Show("请打开串口");
+            }
            
         }
 
@@ -120,6 +131,124 @@ namespace ESP8266
         private void btnClearRece_Click(object sender, EventArgs e)
         {
             txtComRead.Text = "";
+        }
+
+        private void btnSetBaudRate_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, AT.BaudRate);
+          
+        }
+
+        private void BtnScanCom_Click_1(object sender, EventArgs e)
+        {
+            ScanCom();
+        }
+
+        private void btnSetApIP_Click(object sender, EventArgs e)
+        {
+
+
+            SetAp_IP(txtApIP);
+        }
+
+        private void SetAp_IP(TextBox txtBox)
+        {
+            IPAddress ip;
+            if (IPAddress.TryParse(txtBox.Text.Trim(), out ip))
+            {
+                ComDataTransform(serialPort1, AT.Ap_ip(ip.ToString()));
+            }
+            else
+            {
+                MessageBox.Show("请输入正确的ip地址");
+            }
+        }
+
+        private void tbnClearSend_Click_1(object sender, EventArgs e)
+        {
+            txtComWrite.Text = "";
+        }
+
+        private void btnClearRece_Click_1(object sender, EventArgs e)
+        {
+            txtComRead.Text = "";
+        }
+
+        private void btnReBoot_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1,AT.ReBoot);
+        }
+
+        private void btnApStartServer_Click(object sender, EventArgs e)
+        {
+            int port = 0;
+            if (int.TryParse(txtApPort.Text,out port))
+            {
+                ComDataTransform(serialPort1, AT.Ap_StartServer(port));
+            }
+            else
+            {
+
+                MessageBox.Show("请输入数字");
+            }
+            
+        }
+
+        private void btnApCloseServer_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, AT.Ap_StopServer);
+        }
+
+        private void btnSetMuil_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, AT.MutiLink);
+        }
+
+        private void btnSetStaIp_Click(object sender, EventArgs e)
+        {
+            SetStationIp(txtStaIp);
+        }
+
+        private void SetStationIp(TextBox txtBox)
+        {
+            IPAddress ip;
+            if (IPAddress.TryParse(txtBox.Text.Trim(), out ip))
+            {
+                ComDataTransform(serialPort1, ip.ToString());
+            }
+            else
+            {
+                MessageBox.Show("请输入正确IP地址");
+
+            }
+        }
+
+        private void btnApTimeOut_Click(object sender, EventArgs e)
+        {
+            int timeout = 0;
+            if (int.TryParse(txtApTimeOut.Text,out timeout))
+            {
+                ComDataTransform(serialPort1,timeout.ToString());
+            }
+            else
+            {
+                MessageBox.Show("请输入数字");
+            }
+        }
+
+        private void SetApIP_Click(object sender, EventArgs e)
+        {
+            SetAp_IP(txtAp_Ip);
+        }
+
+        private void SetStaIp_Click(object sender, EventArgs e)
+        {
+            SetStationIp(txtSta_IP);
+        }
+
+        private void btnTcpConnect_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
