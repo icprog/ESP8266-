@@ -102,8 +102,7 @@
             this.label20 = new System.Windows.Forms.Label();
             this.txtTcpRece = new System.Windows.Forms.TextBox();
             this.btnTcpClearSend = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
+            this.txtTcpSend = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.txtSendCmd = new System.Windows.Forms.TextBox();
             this.btnReBoot = new System.Windows.Forms.Button();
@@ -832,8 +831,7 @@
             this.tabPage8.Controls.Add(this.label20);
             this.tabPage8.Controls.Add(this.txtTcpRece);
             this.tabPage8.Controls.Add(this.btnTcpClearSend);
-            this.tabPage8.Controls.Add(this.button14);
-            this.tabPage8.Controls.Add(this.button12);
+            this.tabPage8.Controls.Add(this.txtTcpSend);
             this.tabPage8.Controls.Add(this.label19);
             this.tabPage8.Controls.Add(this.txtSendCmd);
             this.tabPage8.Location = new System.Drawing.Point(4, 22);
@@ -852,6 +850,7 @@
             this.btnTcpClearRece.TabIndex = 31;
             this.btnTcpClearRece.Text = "清空接收";
             this.btnTcpClearRece.UseVisualStyleBackColor = true;
+            this.btnTcpClearRece.Click += new System.EventHandler(this.btnTcpClearRece_Click);
             // 
             // label20
             // 
@@ -873,30 +872,23 @@
             // 
             // btnTcpClearSend
             // 
-            this.btnTcpClearSend.Location = new System.Drawing.Point(6, 322);
+            this.btnTcpClearSend.Location = new System.Drawing.Point(44, 322);
             this.btnTcpClearSend.Name = "btnTcpClearSend";
             this.btnTcpClearSend.Size = new System.Drawing.Size(76, 31);
             this.btnTcpClearSend.TabIndex = 28;
             this.btnTcpClearSend.Text = "清空发送";
             this.btnTcpClearSend.UseVisualStyleBackColor = true;
+            this.btnTcpClearSend.Click += new System.EventHandler(this.btnTcpClearSend_Click);
             // 
-            // button14
+            // txtTcpSend
             // 
-            this.button14.Location = new System.Drawing.Point(87, 322);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(76, 31);
-            this.button14.TabIndex = 27;
-            this.button14.Text = "AT发送";
-            this.button14.UseVisualStyleBackColor = true;
-            // 
-            // button12
-            // 
-            this.button12.Location = new System.Drawing.Point(169, 322);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(76, 31);
-            this.button12.TabIndex = 26;
-            this.button12.Text = "文本发送";
-            this.button12.UseVisualStyleBackColor = true;
+            this.txtTcpSend.Location = new System.Drawing.Point(136, 322);
+            this.txtTcpSend.Name = "txtTcpSend";
+            this.txtTcpSend.Size = new System.Drawing.Size(76, 31);
+            this.txtTcpSend.TabIndex = 26;
+            this.txtTcpSend.Text = "发送";
+            this.txtTcpSend.UseVisualStyleBackColor = true;
+            this.txtTcpSend.Click += new System.EventHandler(this.txtTcpSend_Click);
             // 
             // label19
             // 
@@ -1028,8 +1020,7 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox txtTcpRece;
         private System.Windows.Forms.Button btnTcpClearSend;
-        private System.Windows.Forms.Button button14;
-        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button txtTcpSend;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox txtSendCmd;
         private System.Windows.Forms.Button BtnScanCom;

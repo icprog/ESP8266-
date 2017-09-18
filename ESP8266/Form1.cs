@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,12 +25,26 @@ namespace ESP8266
         private string strComRead = "";
         private string strComWQrite = "";
         private byte[] byteComRead;
+
+        //创建一个委托，是为访问TextBox控件服务的。
+        public delegate void UpdateTxt(string msg,TextBox txtBox);
+        //定义一个委托变量
+        public UpdateTxt updateTxt;
+
+   
         public Form1()
         {
             InitializeComponent();
             comWorkWay.SelectedIndex = 0;
             comBaudRate.SelectedIndex = 0;
             ScanCom();
+            updateTxt = new UpdateTxt(UpdateTxtMethod);
+           
+
+        }
+
+        private void ApendText(string msg, TextBox txtbox)
+        {
             
         }
 
@@ -245,10 +260,163 @@ namespace ESP8266
         {
             SetStationIp(txtSta_IP);
         }
+        private Socket clientSocket;
+        private ManualResetEvent connectDone = new ManualResetEvent(false);
 
         private void btnTcpConnect_Click(object sender, EventArgs e)
         {
+            try
+            {
+                int serverPort = 0;
+                IPAddress ip;
+                if (int.TryParse(txtServerPort.Text,out serverPort)&&IPAddress.TryParse(txtTcpSeverIP.Text,out ip))
+                {
+                    IPEndPoint remoteEP = new IPEndPoint(ip, serverPort);
+                    clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    clientSocket.BeginConnect(remoteEP, new AsyncCallback(ConnectCallBack), clientSocket);
+                    connectDone.WaitOne();
+                    Receive(clientSocket);
+                }
+                else
+                {
+                    MessageBox.Show("请输入正确的ip地址或者端口号");
+                }
 
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void Receive(Socket client)
+        {
+            try
+            {
+                StateObject state = new StateObject();
+                state.workSocket = client;
+                // 開始非同步接收主機端資料
+                state.workSocket.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
+
+        private void ConnectCallBack(IAsyncResult ar)
+        {
+            try
+            {
+                Socket client = (Socket)ar.AsyncState;
+                // 完成连接
+                client.EndConnect(ar);
+
+                string str = "已连接到服务器: " + client.RemoteEndPoint.ToString();
+
+
+                if (txtTcpRece.InvokeRequired)
+                {
+                    txtTcpRece.BeginInvoke(updateTxt,str , txtTcpRece);
+                }
+                else
+                {
+                    txtTcpRece.AppendText(str + Environment.NewLine);
+                }
+
+                // 狀態設定為未收到訊號
+                connectDone.Set();
+            }
+            catch (Exception e)
+            {
+                connectDone.Set();
+                MessageBox.Show(e.ToString());
+            }
+        }
+
+        private void ReceiveCallback(IAsyncResult ar)
+        {
+            try
+            {
+                StateObject state = null;
+                state = (StateObject)ar.AsyncState;
+                Socket server = state.workSocket;
+
+                // 從主機端讀取資料
+                int bytesRead = server.EndReceive(ar);
+                // 有資料
+                if (bytesRead > 0)
+                {
+                  
+                    String MSG = Encoding.ASCII.GetString(state.buffer);
+                    if (txtTcpRece.InvokeRequired)
+                    {
+                        txtTcpRece.BeginInvoke(updateTxt, MSG, txtTcpRece);
+                    }
+                    else
+                    {
+                        txtTcpRece.AppendText(MSG + Environment.NewLine);
+                    }
+                }
+                // 繼續等待主機回傳的資料
+                state.workSocket.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
+        public void UpdateTxtMethod(string msg,TextBox txtBox)
+        {
+            txtBox.Text+=(msg + Environment.NewLine);
+            txtBox.ScrollToCaret();
+        }
+
+        private void btnTcpClearSend_Click(object sender, EventArgs e)
+        {
+            txtSendCmd.Text = "";
+        }
+
+        private void btnTcpClearRece_Click(object sender, EventArgs e)
+        {
+            txtTcpRece.Text = "";
+        }
+
+        private void txtTcpSend_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtSendCmd.Text == "")
+                {
+                    MessageBox.Show("请输入发送信息");
+                    return;
+                }
+
+
+                 if (clientSocket!=null )
+              
+                {
+
+                    if ( clientSocket.Connected)
+                    {
+                        byte[] byteData = Encoding.ASCII.GetBytes(txtSendCmd.Text.Trim());
+
+                        clientSocket.Send(byteData);
+
+                        txtSendCmd.Text = "";
+                    }
+                    else
+                    {
+                        MessageBox.Show("与服务器连接断开,请连接");
+                    }
+                 
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }
