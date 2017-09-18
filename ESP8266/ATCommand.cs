@@ -105,11 +105,13 @@ namespace ESP8266
         /// <summary>
         /// AT+CIPMODE=0 非穿透模式
         /// </summary>
-        public readonly string Penetrate = "AT+CIPMODE=0";
+        public readonly string PenetrateNot = "AT+CIPMODE=0";
         /// <summary>
         /// AT+CIPMODE=1 穿透模式
         /// </summary>
-        public readonly string PenetrateNot = "AT+CIPMODE=1";
+        public readonly string Penetrate = "AT+CIPMODE=1";
+
+        public readonly string QuitPenetrate = "+++";
 
         /// <summary>
         /// 查询服务超时时间
@@ -142,5 +144,17 @@ namespace ESP8266
         public readonly string QuerySelfIp = "AT+CIFSR";
 
         public readonly string Version = "AT+GMR";
+        public readonly string ScanWifi = "AT+CWLAP";
+        public readonly string CloseWifi = "AT+CWQAP";
+
+        public readonly string OpenDog = "AT+CSYSWDTENABLE";
+        public readonly string CloseDog = "AT+CSYSWDTDISABLE";
+        public readonly string ClearDog = "AT+CSYSWDTCLEAR";
+
+        public readonly string QueryTimeOut = "AT+CIPSTO?";
+        public readonly string QueryWorkWAy = "AT+CWMODE?";
+
+        public readonly string QueryJionDevice = "AT+CWLIF";
+
     }
 }

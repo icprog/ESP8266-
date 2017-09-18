@@ -518,6 +518,74 @@ namespace ESP8266
         {
             ComDataTransform(serialPort1,AT.Version);
         }
+
+        private void btnScanWifi_Click(object sender, EventArgs e)
+        {
+            //AT + CWLAP
+            ComDataTransform(serialPort1, AT.ScanWifi);
+        }
+
+        private void btnDisConnect_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, AT.CloseWifi);
+        }
+
+        private void btnSingleLinke_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, AT.SingleLink);
+        }
+
+        private void btnMultiLink_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, AT.MutiLink);
+        }
+
+        private void btnPenetrate_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, AT.Penetrate);
+        }
+
+        private void btnNotPenetrate_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, AT.PenetrateNot);
+        }
+
+        private void btnQuitPenetrate_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, AT.QuitPenetrate);
+        }
+
+        private void btnOpenDog_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, AT.OpenDog);
+            
+        }
+
+        private void btnCloseDog_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, AT.CloseDog);
+          
+        }
+
+        private void btnClearDog_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, AT.ClearDog);
+        }
+
+        private void btnQueryTimeOut_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, AT.QueryTimeout);
+        }
+
+        private void btnQueryTiimeOut_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, AT.QueryWorkWAy);
+        }
+
+        private void btnQueryDevice_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, AT.QueryJionDevice);
+        }
     }
 }
 

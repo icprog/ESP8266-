@@ -793,6 +793,7 @@
             this.btnQueryTiimeOut.TabIndex = 45;
             this.btnQueryTiimeOut.Text = "查询工作模式";
             this.btnQueryTiimeOut.UseVisualStyleBackColor = true;
+            this.btnQueryTiimeOut.Click += new System.EventHandler(this.btnQueryTiimeOut_Click);
             // 
             // btnQueryDevice
             // 
@@ -802,6 +803,7 @@
             this.btnQueryDevice.TabIndex = 43;
             this.btnQueryDevice.Text = "查询借入设备IP";
             this.btnQueryDevice.UseVisualStyleBackColor = true;
+            this.btnQueryDevice.Click += new System.EventHandler(this.btnQueryDevice_Click);
             // 
             // btnQueryTimeOut
             // 
@@ -811,6 +813,7 @@
             this.btnQueryTimeOut.TabIndex = 41;
             this.btnQueryTimeOut.Text = "查询超时服务时间";
             this.btnQueryTimeOut.UseVisualStyleBackColor = true;
+            this.btnQueryTimeOut.Click += new System.EventHandler(this.btnQueryTimeOut_Click);
             // 
             // btnClearDog
             // 
@@ -820,6 +823,7 @@
             this.btnClearDog.TabIndex = 40;
             this.btnClearDog.Text = "清零关门狗";
             this.btnClearDog.UseVisualStyleBackColor = true;
+            this.btnClearDog.Click += new System.EventHandler(this.btnClearDog_Click);
             // 
             // btnQuitPenetrate
             // 
@@ -829,6 +833,7 @@
             this.btnQuitPenetrate.TabIndex = 39;
             this.btnQuitPenetrate.Text = "+++退出穿透";
             this.btnQuitPenetrate.UseVisualStyleBackColor = true;
+            this.btnQuitPenetrate.Click += new System.EventHandler(this.btnQuitPenetrate_Click);
             // 
             // btnCloseDog
             // 
@@ -838,6 +843,7 @@
             this.btnCloseDog.TabIndex = 38;
             this.btnCloseDog.Text = "关看门狗";
             this.btnCloseDog.UseVisualStyleBackColor = true;
+            this.btnCloseDog.Click += new System.EventHandler(this.btnCloseDog_Click);
             // 
             // btnOpenDog
             // 
@@ -847,6 +853,7 @@
             this.btnOpenDog.TabIndex = 37;
             this.btnOpenDog.Text = "开看门狗";
             this.btnOpenDog.UseVisualStyleBackColor = true;
+            this.btnOpenDog.Click += new System.EventHandler(this.btnOpenDog_Click);
             // 
             // btnNotPenetrate
             // 
@@ -856,6 +863,7 @@
             this.btnNotPenetrate.TabIndex = 36;
             this.btnNotPenetrate.Text = "非穿透模式";
             this.btnNotPenetrate.UseVisualStyleBackColor = true;
+            this.btnNotPenetrate.Click += new System.EventHandler(this.btnNotPenetrate_Click);
             // 
             // btnPenetrate
             // 
@@ -865,6 +873,7 @@
             this.btnPenetrate.TabIndex = 35;
             this.btnPenetrate.Text = "穿透模式";
             this.btnPenetrate.UseVisualStyleBackColor = true;
+            this.btnPenetrate.Click += new System.EventHandler(this.btnPenetrate_Click);
             // 
             // btnMultiLink
             // 
@@ -874,6 +883,7 @@
             this.btnMultiLink.TabIndex = 34;
             this.btnMultiLink.Text = "设置多连接";
             this.btnMultiLink.UseVisualStyleBackColor = true;
+            this.btnMultiLink.Click += new System.EventHandler(this.btnMultiLink_Click);
             // 
             // btnScanWifi
             // 
@@ -883,6 +893,7 @@
             this.btnScanWifi.TabIndex = 33;
             this.btnScanWifi.Text = "扫描wifi";
             this.btnScanWifi.UseVisualStyleBackColor = true;
+            this.btnScanWifi.Click += new System.EventHandler(this.btnScanWifi_Click);
             // 
             // btnSingleLinke
             // 
@@ -892,6 +903,7 @@
             this.btnSingleLinke.TabIndex = 32;
             this.btnSingleLinke.Text = "设置单链接";
             this.btnSingleLinke.UseVisualStyleBackColor = true;
+            this.btnSingleLinke.Click += new System.EventHandler(this.btnSingleLinke_Click);
             // 
             // btnDisConnect
             // 
@@ -901,6 +913,7 @@
             this.btnDisConnect.TabIndex = 31;
             this.btnDisConnect.Text = "断开wifi";
             this.btnDisConnect.UseVisualStyleBackColor = true;
+            this.btnDisConnect.Click += new System.EventHandler(this.btnDisConnect_Click);
             // 
             // btnVersion
             // 
