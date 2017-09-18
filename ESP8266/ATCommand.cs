@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,14 +22,17 @@ namespace ESP8266
 
         public readonly string BaudRate = "AT+CIOBAUD=";
 
-        public string Ap_ip(string  ip)
+        public string Ap_ip(string ip)
         {
             return "AT+CIPAP=" + "\"" + ip + "\"";
         }
 
 
+        public string Sta_ip(string ip)
+        {
+            return "AT+CIPSTA=" + "\"" + ip + "\"";
+        }
 
-        public readonly string Sta_ip = "AT+CIPSTA=";
         //AT+CWJAP="ESP8266","0123456789"
         private const string _JionWifi = "AT+CWJAP=";
 
@@ -68,12 +72,12 @@ namespace ESP8266
 
         public string Ap_StartServer(int port)
         {
-            return _Ap_StartServer +","+ port;
+            return _Ap_StartServer + "," + port;
         }
 
         public readonly string Ap_StopServer = "AT+CIPSERVER=0";
 
-      
+
         /// <summary>
         /// AT+CIPSTO=180,服务器超时时间
         /// </summary>
@@ -93,10 +97,8 @@ namespace ESP8266
         public readonly string MutiLink = "AT+CIPMUX=1";
         public readonly string SingleLink = "AT+CIPMUX=0";
 
-        /// <summary>
-        /// AT+CIFSR 查询自身IP地址
-        /// </summary>
-        public readonly string QueryIP = "AT+CIFSR";
+       
+      
 
         public readonly string ReBoot = "AT+RST";
 
@@ -112,6 +114,33 @@ namespace ESP8266
         /// <summary>
         /// 查询服务超时时间
         /// </summary>
-        public readonly string QueryTimeout= "AT+CIPSTO?";
+        public readonly string QueryTimeout = "AT+CIPSTO?";
+
+
+        public string TcpConnect(int port, IPAddress ip)
+        {
+            //AT + CIPSTART = "TCP","192.168.1.100",5000
+
+            return "AT+CIPSTART=\"TCP\"," + "\"" + ip.ToString() + "\"" + "," + port;
+        }
+
+        public string UDPConnect(int RemoPort, int LocalPort, IPAddress ip)
+        {
+            //"AT+CIPSTART="UDP","255.255.255.255",5000,5000"
+            return "AT+CIPSTART=\"UDP\"," + "\"" + ip + "\"," + RemoPort + "," + LocalPort;
+
+        }
+
+        public string CloseConnect(int id)
+        {
+
+            return "AT+CIPCLOSE=" + id;
+        }
+        /// <summary>
+        /// AT+CIFSR 查询自身IP地址
+        /// </summary>
+        public readonly string QuerySelfIp = "AT+CIFSR";
+
+        public readonly string Version = "AT+GMR";
     }
 }

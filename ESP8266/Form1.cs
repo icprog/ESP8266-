@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using ESP8266.HelperClass;
 
 namespace ESP8266
@@ -130,6 +131,7 @@ namespace ESP8266
              
                 Thread.Sleep(200);
                 txtComRead.Text += port.ReadExisting() + Environment.NewLine;
+               
             }
             else
             {
@@ -229,7 +231,7 @@ namespace ESP8266
             IPAddress ip;
             if (IPAddress.TryParse(txtBox.Text.Trim(), out ip))
             {
-                ComDataTransform(serialPort1, ip.ToString());
+                ComDataTransform(serialPort1,AT.Sta_ip(ip.ToString()));
             }
             else
             {
@@ -265,29 +267,55 @@ namespace ESP8266
 
         private void btnTcpConnect_Click(object sender, EventArgs e)
         {
-            try
-            {
-                int serverPort = 0;
-                IPAddress ip;
-                if (int.TryParse(txtServerPort.Text,out serverPort)&&IPAddress.TryParse(txtTcpSeverIP.Text,out ip))
-                {
-                    IPEndPoint remoteEP = new IPEndPoint(ip, serverPort);
-                    clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    clientSocket.BeginConnect(remoteEP, new AsyncCallback(ConnectCallBack), clientSocket);
-                    connectDone.WaitOne();
-                    Receive(clientSocket);
-                }
-                else
-                {
-                    MessageBox.Show("请输入正确的ip地址或者端口号");
-                }
+            #region sokect 连接
+            //try
+            //{
+            //    int serverPort = 0;
+            //    IPAddress ip;
+            //    if (int.TryParse(txtServerPort.Text, out serverPort) && IPAddress.TryParse(txtTcpSeverIP.Text, out ip))
+            //    {
+            //        IPEndPoint remoteEP = new IPEndPoint(ip, serverPort);
 
-                
-            }
-            catch (Exception ex)
+            //        clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            //        clientSocket.BeginConnect(remoteEP, new AsyncCallback(ConnectCallBack), clientSocket);
+
+
+            //        connectDone.WaitOne();
+            //        Receive(clientSocket);
+
+
+            //        tabControl2.SelectedIndex = 1;
+            //        return;
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("请输入正确的ip地址或者端口号");
+            //    }
+
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.ToString());
+            //} 
+            #endregion
+
+            #region AT命令连接
+
+            IPAddress ip;
+            int port;
+            if (IPAddress.TryParse(txtTcpSeverIP.Text,out ip)&&int.TryParse(txtServerPort.Text,out port))
             {
-                MessageBox.Show(ex.ToString());
+                ComDataTransform(serialPort1, AT.TcpConnect(port,ip));
             }
+            else
+            {
+                MessageBox.Show("请输入正确ip地址或者端口号");
+            }
+
+           
+
+            #endregion
         }
 
         private void Receive(Socket client)
@@ -297,7 +325,17 @@ namespace ESP8266
                 StateObject state = new StateObject();
                 state.workSocket = client;
                 // 開始非同步接收主機端資料
-                state.workSocket.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
+                if (state.workSocket.Connected)
+                {
+                    state.workSocket.BeginReceive(state.buffer, 0, state.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
+                }
+                else
+                {
+
+                    txtTcpRece.BeginInvoke(updateTxt, Environment.NewLine + "连接断开", txtTcpRece);
+
+                }
+             
             }
             catch (Exception e)
             {
@@ -310,6 +348,12 @@ namespace ESP8266
             try
             {
                 Socket client = (Socket)ar.AsyncState;
+                if (!client.Connected)
+                {
+                    txtTcpRece.BeginInvoke(updateTxt, "无法连接服务器", txtTcpRece);
+                 
+                    return;
+                }
                 // 完成连接
                 client.EndConnect(ar);
 
@@ -342,9 +386,10 @@ namespace ESP8266
                 StateObject state = null;
                 state = (StateObject)ar.AsyncState;
                 Socket server = state.workSocket;
-
-                // 從主機端讀取資料
-                int bytesRead = server.EndReceive(ar);
+                if (state.workSocket.Connected)
+                {
+                    // 從主機端讀取資料
+                    int bytesRead = server.EndReceive(ar);
                 // 有資料
                 if (bytesRead > 0)
                 {
@@ -360,7 +405,16 @@ namespace ESP8266
                     }
                 }
                 // 繼續等待主機回傳的資料
-                state.workSocket.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
+                state.buffer =new byte[state.BufferSize];
+                
+                    state.workSocket.BeginReceive(state.buffer, 0, state.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
+                }
+                else
+                {
+                    txtTcpRece.BeginInvoke(updateTxt,Environment.NewLine+ "连接断开", txtTcpRece);
+                    
+                }
+              
             }
             catch (Exception e)
             {
@@ -369,7 +423,8 @@ namespace ESP8266
         }
         public void UpdateTxtMethod(string msg,TextBox txtBox)
         {
-            txtBox.Text+=(msg + Environment.NewLine);
+            txtBox.Text+= (Environment.NewLine+msg   );
+          
             txtBox.ScrollToCaret();
         }
 
@@ -417,6 +472,51 @@ namespace ESP8266
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex==4)
+            {
+                tabControl2.SelectedIndex = 1;
+            }
+            else
+            {
+                tabControl2.SelectedIndex = 0;
+            }
+        }
+
+        private void btnUdpConnect_Click(object sender, EventArgs e)
+        {
+            IPAddress ip;
+            int remoPort;
+            int locaPort;
+
+            if (IPAddress.TryParse(txtUdpIP.Text,out ip)&& int.TryParse(txtUdpRemotePort.Text,out remoPort )&&int.TryParse(txtUdpLocalPort.Text,out locaPort))
+            {
+                ComDataTransform(serialPort1,AT.UDPConnect(remoPort,locaPort,ip));
+            }
+
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, AT.CloseConnect(comId.SelectedIndex));
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            comId.SelectedIndex = 0;
+        }
+
+        private void btnQueryIp_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1,AT.QuerySelfIp);
+        }
+
+        private void btnVersion_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1,AT.Version);
         }
     }
 }

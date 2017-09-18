@@ -70,6 +70,9 @@
             this.SetApIP = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.comId = new System.Windows.Forms.ComboBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.btnClose = new System.Windows.Forms.Button();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.txtUdpLocalPort = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -85,6 +88,21 @@
             this.btnTcpConnect = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.btnQueryTiimeOut = new System.Windows.Forms.Button();
+            this.btnQueryDevice = new System.Windows.Forms.Button();
+            this.btnQueryTimeOut = new System.Windows.Forms.Button();
+            this.btnClearDog = new System.Windows.Forms.Button();
+            this.btnQuitPenetrate = new System.Windows.Forms.Button();
+            this.btnCloseDog = new System.Windows.Forms.Button();
+            this.btnOpenDog = new System.Windows.Forms.Button();
+            this.btnNotPenetrate = new System.Windows.Forms.Button();
+            this.btnPenetrate = new System.Windows.Forms.Button();
+            this.btnMultiLink = new System.Windows.Forms.Button();
+            this.btnScanWifi = new System.Windows.Forms.Button();
+            this.btnSingleLinke = new System.Windows.Forms.Button();
+            this.btnDisConnect = new System.Windows.Forms.Button();
+            this.btnVersion = new System.Windows.Forms.Button();
+            this.btnQueryIp = new System.Windows.Forms.Button();
             this.btnSetWorkWay = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
             this.comWorkWay = new System.Windows.Forms.ComboBox();
@@ -117,6 +135,7 @@
             this.tabPage5.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.tabPage8.SuspendLayout();
@@ -133,8 +152,9 @@
             this.tabControl1.Location = new System.Drawing.Point(29, 40);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(406, 397);
+            this.tabControl1.Size = new System.Drawing.Size(418, 397);
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -144,7 +164,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(398, 371);
+            this.tabPage1.Size = new System.Drawing.Size(410, 371);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "串口";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -317,7 +337,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(398, 371);
+            this.tabPage2.Size = new System.Drawing.Size(410, 371);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "AP模式";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -451,7 +471,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(398, 371);
+            this.tabPage3.Size = new System.Drawing.Size(410, 371);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Station模式";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -493,7 +513,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(398, 371);
+            this.tabPage4.Size = new System.Drawing.Size(410, 371);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "AP兼Station模式";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -552,15 +572,63 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.comId);
+            this.tabPage5.Controls.Add(this.label22);
+            this.tabPage5.Controls.Add(this.btnClose);
             this.tabPage5.Controls.Add(this.groupBox9);
             this.tabPage5.Controls.Add(this.groupBox8);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(398, 371);
+            this.tabPage5.Size = new System.Drawing.Size(410, 371);
             this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "网络测试";
+            this.tabPage5.Text = "AT网络测试";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // comId
+            // 
+            this.comId.AutoCompleteCustomSource.AddRange(new string[] {
+            "300",
+            "600",
+            "1200",
+            "2400",
+            "4800",
+            "9600",
+            "14400",
+            "28800",
+            "36000",
+            "115200"});
+            this.comId.FormattingEnabled = true;
+            this.comId.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.comId.Location = new System.Drawing.Point(178, 313);
+            this.comId.Name = "comId";
+            this.comId.Size = new System.Drawing.Size(81, 20);
+            this.comId.TabIndex = 26;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(105, 321);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(41, 12);
+            this.label22.TabIndex = 15;
+            this.label22.Text = "连接id";
+            // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(298, 307);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(76, 31);
+            this.btnClose.TabIndex = 14;
+            this.btnClose.Text = "断开";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // groupBox9
             // 
@@ -580,7 +648,7 @@
             // 
             // txtUdpLocalPort
             // 
-            this.txtUdpLocalPort.Location = new System.Drawing.Point(212, 99);
+            this.txtUdpLocalPort.Location = new System.Drawing.Point(290, 68);
             this.txtUdpLocalPort.Name = "txtUdpLocalPort";
             this.txtUdpLocalPort.Size = new System.Drawing.Size(70, 21);
             this.txtUdpLocalPort.TabIndex = 10;
@@ -588,7 +656,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(141, 102);
+            this.label17.Location = new System.Drawing.Point(188, 74);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(65, 12);
             this.label17.TabIndex = 9;
@@ -596,7 +664,7 @@
             // 
             // txtUdpRemotePort
             // 
-            this.txtUdpRemotePort.Location = new System.Drawing.Point(77, 99);
+            this.txtUdpRemotePort.Location = new System.Drawing.Point(94, 71);
             this.txtUdpRemotePort.Name = "txtUdpRemotePort";
             this.txtUdpRemotePort.Size = new System.Drawing.Size(60, 21);
             this.txtUdpRemotePort.TabIndex = 8;
@@ -604,7 +672,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 102);
+            this.label15.Location = new System.Drawing.Point(9, 71);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(65, 12);
             this.label15.TabIndex = 7;
@@ -612,24 +680,25 @@
             // 
             // txtUdpIP
             // 
-            this.txtUdpIP.Location = new System.Drawing.Point(8, 56);
+            this.txtUdpIP.Location = new System.Drawing.Point(190, 29);
             this.txtUdpIP.Name = "txtUdpIP";
-            this.txtUdpIP.Size = new System.Drawing.Size(148, 21);
+            this.txtUdpIP.Size = new System.Drawing.Size(170, 21);
             this.txtUdpIP.TabIndex = 6;
             // 
             // btnUdpConnect
             // 
-            this.btnUdpConnect.Location = new System.Drawing.Point(304, 56);
+            this.btnUdpConnect.Location = new System.Drawing.Point(292, 110);
             this.btnUdpConnect.Name = "btnUdpConnect";
             this.btnUdpConnect.Size = new System.Drawing.Size(76, 31);
             this.btnUdpConnect.TabIndex = 5;
             this.btnUdpConnect.Text = "连接";
             this.btnUdpConnect.UseVisualStyleBackColor = true;
+            this.btnUdpConnect.Click += new System.EventHandler(this.btnUdpConnect_Click);
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 32);
+            this.label16.Location = new System.Drawing.Point(9, 32);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(131, 12);
             this.label16.TabIndex = 1;
@@ -674,7 +743,7 @@
             // 
             // btnTcpConnect
             // 
-            this.btnTcpConnect.Location = new System.Drawing.Point(304, 60);
+            this.btnTcpConnect.Location = new System.Drawing.Point(292, 61);
             this.btnTcpConnect.Name = "btnTcpConnect";
             this.btnTcpConnect.Size = new System.Drawing.Size(76, 31);
             this.btnTcpConnect.TabIndex = 5;
@@ -693,13 +762,165 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.btnQueryTiimeOut);
+            this.tabPage6.Controls.Add(this.btnQueryDevice);
+            this.tabPage6.Controls.Add(this.btnQueryTimeOut);
+            this.tabPage6.Controls.Add(this.btnClearDog);
+            this.tabPage6.Controls.Add(this.btnQuitPenetrate);
+            this.tabPage6.Controls.Add(this.btnCloseDog);
+            this.tabPage6.Controls.Add(this.btnOpenDog);
+            this.tabPage6.Controls.Add(this.btnNotPenetrate);
+            this.tabPage6.Controls.Add(this.btnPenetrate);
+            this.tabPage6.Controls.Add(this.btnMultiLink);
+            this.tabPage6.Controls.Add(this.btnScanWifi);
+            this.tabPage6.Controls.Add(this.btnSingleLinke);
+            this.tabPage6.Controls.Add(this.btnDisConnect);
+            this.tabPage6.Controls.Add(this.btnVersion);
+            this.tabPage6.Controls.Add(this.btnQueryIp);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(398, 371);
+            this.tabPage6.Size = new System.Drawing.Size(410, 371);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "常用命令";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // btnQueryTiimeOut
+            // 
+            this.btnQueryTiimeOut.Location = new System.Drawing.Point(213, 241);
+            this.btnQueryTiimeOut.Name = "btnQueryTiimeOut";
+            this.btnQueryTiimeOut.Size = new System.Drawing.Size(131, 31);
+            this.btnQueryTiimeOut.TabIndex = 45;
+            this.btnQueryTiimeOut.Text = "查询工作模式";
+            this.btnQueryTiimeOut.UseVisualStyleBackColor = true;
+            // 
+            // btnQueryDevice
+            // 
+            this.btnQueryDevice.Location = new System.Drawing.Point(60, 292);
+            this.btnQueryDevice.Name = "btnQueryDevice";
+            this.btnQueryDevice.Size = new System.Drawing.Size(112, 31);
+            this.btnQueryDevice.TabIndex = 43;
+            this.btnQueryDevice.Text = "查询借入设备IP";
+            this.btnQueryDevice.UseVisualStyleBackColor = true;
+            // 
+            // btnQueryTimeOut
+            // 
+            this.btnQueryTimeOut.Location = new System.Drawing.Point(60, 241);
+            this.btnQueryTimeOut.Name = "btnQueryTimeOut";
+            this.btnQueryTimeOut.Size = new System.Drawing.Size(112, 31);
+            this.btnQueryTimeOut.TabIndex = 41;
+            this.btnQueryTimeOut.Text = "查询超时服务时间";
+            this.btnQueryTimeOut.UseVisualStyleBackColor = true;
+            // 
+            // btnClearDog
+            // 
+            this.btnClearDog.Location = new System.Drawing.Point(268, 189);
+            this.btnClearDog.Name = "btnClearDog";
+            this.btnClearDog.Size = new System.Drawing.Size(76, 31);
+            this.btnClearDog.TabIndex = 40;
+            this.btnClearDog.Text = "清零关门狗";
+            this.btnClearDog.UseVisualStyleBackColor = true;
+            // 
+            // btnQuitPenetrate
+            // 
+            this.btnQuitPenetrate.Location = new System.Drawing.Point(268, 138);
+            this.btnQuitPenetrate.Name = "btnQuitPenetrate";
+            this.btnQuitPenetrate.Size = new System.Drawing.Size(87, 31);
+            this.btnQuitPenetrate.TabIndex = 39;
+            this.btnQuitPenetrate.Text = "+++退出穿透";
+            this.btnQuitPenetrate.UseVisualStyleBackColor = true;
+            // 
+            // btnCloseDog
+            // 
+            this.btnCloseDog.Location = new System.Drawing.Point(164, 189);
+            this.btnCloseDog.Name = "btnCloseDog";
+            this.btnCloseDog.Size = new System.Drawing.Size(76, 31);
+            this.btnCloseDog.TabIndex = 38;
+            this.btnCloseDog.Text = "关看门狗";
+            this.btnCloseDog.UseVisualStyleBackColor = true;
+            // 
+            // btnOpenDog
+            // 
+            this.btnOpenDog.Location = new System.Drawing.Point(60, 189);
+            this.btnOpenDog.Name = "btnOpenDog";
+            this.btnOpenDog.Size = new System.Drawing.Size(76, 31);
+            this.btnOpenDog.TabIndex = 37;
+            this.btnOpenDog.Text = "开看门狗";
+            this.btnOpenDog.UseVisualStyleBackColor = true;
+            // 
+            // btnNotPenetrate
+            // 
+            this.btnNotPenetrate.Location = new System.Drawing.Point(164, 138);
+            this.btnNotPenetrate.Name = "btnNotPenetrate";
+            this.btnNotPenetrate.Size = new System.Drawing.Size(76, 31);
+            this.btnNotPenetrate.TabIndex = 36;
+            this.btnNotPenetrate.Text = "非穿透模式";
+            this.btnNotPenetrate.UseVisualStyleBackColor = true;
+            // 
+            // btnPenetrate
+            // 
+            this.btnPenetrate.Location = new System.Drawing.Point(60, 138);
+            this.btnPenetrate.Name = "btnPenetrate";
+            this.btnPenetrate.Size = new System.Drawing.Size(76, 31);
+            this.btnPenetrate.TabIndex = 35;
+            this.btnPenetrate.Text = "穿透模式";
+            this.btnPenetrate.UseVisualStyleBackColor = true;
+            // 
+            // btnMultiLink
+            // 
+            this.btnMultiLink.Location = new System.Drawing.Point(268, 83);
+            this.btnMultiLink.Name = "btnMultiLink";
+            this.btnMultiLink.Size = new System.Drawing.Size(76, 31);
+            this.btnMultiLink.TabIndex = 34;
+            this.btnMultiLink.Text = "设置多连接";
+            this.btnMultiLink.UseVisualStyleBackColor = true;
+            // 
+            // btnScanWifi
+            // 
+            this.btnScanWifi.Location = new System.Drawing.Point(268, 32);
+            this.btnScanWifi.Name = "btnScanWifi";
+            this.btnScanWifi.Size = new System.Drawing.Size(76, 31);
+            this.btnScanWifi.TabIndex = 33;
+            this.btnScanWifi.Text = "扫描wifi";
+            this.btnScanWifi.UseVisualStyleBackColor = true;
+            // 
+            // btnSingleLinke
+            // 
+            this.btnSingleLinke.Location = new System.Drawing.Point(164, 83);
+            this.btnSingleLinke.Name = "btnSingleLinke";
+            this.btnSingleLinke.Size = new System.Drawing.Size(76, 31);
+            this.btnSingleLinke.TabIndex = 32;
+            this.btnSingleLinke.Text = "设置单链接";
+            this.btnSingleLinke.UseVisualStyleBackColor = true;
+            // 
+            // btnDisConnect
+            // 
+            this.btnDisConnect.Location = new System.Drawing.Point(60, 83);
+            this.btnDisConnect.Name = "btnDisConnect";
+            this.btnDisConnect.Size = new System.Drawing.Size(76, 31);
+            this.btnDisConnect.TabIndex = 31;
+            this.btnDisConnect.Text = "断开wifi";
+            this.btnDisConnect.UseVisualStyleBackColor = true;
+            // 
+            // btnVersion
+            // 
+            this.btnVersion.Location = new System.Drawing.Point(164, 32);
+            this.btnVersion.Name = "btnVersion";
+            this.btnVersion.Size = new System.Drawing.Size(76, 31);
+            this.btnVersion.TabIndex = 30;
+            this.btnVersion.Text = "查询版本";
+            this.btnVersion.UseVisualStyleBackColor = true;
+            this.btnVersion.Click += new System.EventHandler(this.btnVersion_Click);
+            // 
+            // btnQueryIp
+            // 
+            this.btnQueryIp.Location = new System.Drawing.Point(60, 32);
+            this.btnQueryIp.Name = "btnQueryIp";
+            this.btnQueryIp.Size = new System.Drawing.Size(76, 31);
+            this.btnQueryIp.TabIndex = 29;
+            this.btnQueryIp.Text = "查看自己IP";
+            this.btnQueryIp.UseVisualStyleBackColor = true;
+            this.btnQueryIp.Click += new System.EventHandler(this.btnQueryIp_Click);
             // 
             // btnSetWorkWay
             // 
@@ -933,6 +1154,7 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "ESP8266wifi测试";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -948,10 +1170,12 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
@@ -1041,6 +1265,24 @@
         private System.Windows.Forms.TextBox txtAp_Ip;
         private System.Windows.Forms.Button SetApIP;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.ComboBox comId;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Button btnQueryTiimeOut;
+        private System.Windows.Forms.Button btnQueryDevice;
+        private System.Windows.Forms.Button btnQueryTimeOut;
+        private System.Windows.Forms.Button btnClearDog;
+        private System.Windows.Forms.Button btnQuitPenetrate;
+        private System.Windows.Forms.Button btnCloseDog;
+        private System.Windows.Forms.Button btnOpenDog;
+        private System.Windows.Forms.Button btnNotPenetrate;
+        private System.Windows.Forms.Button btnPenetrate;
+        private System.Windows.Forms.Button btnMultiLink;
+        private System.Windows.Forms.Button btnScanWifi;
+        private System.Windows.Forms.Button btnSingleLinke;
+        private System.Windows.Forms.Button btnDisConnect;
+        private System.Windows.Forms.Button btnVersion;
+        private System.Windows.Forms.Button btnQueryIp;
     }
 }
 

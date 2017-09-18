@@ -12,12 +12,19 @@ namespace ESP8266
         public Socket workSocket = null;
 
         // Size of receive buffer.
-        public const int BufferSize = 1024;
+
+
+        public int BufferSize { get; set; } = 1024;
 
         // Receive buffer.
-        public byte[] buffer = new byte[BufferSize];
+        public byte[] buffer;
 
         // Received data string.
         public StringBuilder sb = new StringBuilder();
+
+        public StateObject()
+        {
+            buffer = new byte[this.BufferSize];
+        }
     }
 }
