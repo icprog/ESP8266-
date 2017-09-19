@@ -163,5 +163,11 @@ namespace ESP8266
             return "AT+CWSAP=\"" + name + "\",\"" + pwd + "\"" + ",11," + encrpt;
         }
 
+        public string JoinWifi(string name, string pwd)
+        {
+            //AT+CWJAP="ESP8266","0123456789"
+            return "AT+CWJAP=\"" + name + "\",\"" + pwd + "\"";
+        }
+
     }
 }

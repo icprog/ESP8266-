@@ -501,14 +501,14 @@ namespace ESP8266
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedIndex==4)
-            {
-                tabControl2.SelectedIndex = 1;
-            }
-            else
-            {
-                tabControl2.SelectedIndex = 0;
-            }
+            //if (tabControl1.SelectedIndex==4)
+            //{
+            //    tabControl2.SelectedIndex = 1;
+            //}
+            //else
+            //{
+            //    tabControl2.SelectedIndex = 0;
+            //}
         }
 
         private void btnUdpConnect_Click(object sender, EventArgs e)
@@ -649,6 +649,17 @@ namespace ESP8266
         private void btnSetWifi_Click(object sender, EventArgs e)
         {
             ComDataTransform(serialPort1, AT.SetWifi(txtWifiName.Text,txtWifiPwd.Text, comEncrypt.SelectedIndex));
+        }
+
+        private void btnJionWifi_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, AT.JoinWifi(txtJoinWifiName.Text, txtJoinWifiPwd.Text));
+        }
+
+        private void btnSendData_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, txtSendData.Text);
+            ;
         }
     }
 }
