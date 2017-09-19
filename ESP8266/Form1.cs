@@ -290,38 +290,7 @@ namespace ESP8266
 
         private void btnTcpConnect_Click(object sender, EventArgs e)
         {
-            #region sokect 连接
-            //try
-            //{
-            //    int serverPort = 0;
-            //    IPAddress ip;
-            //    if (int.TryParse(txtServerPort.Text, out serverPort) && IPAddress.TryParse(txtTcpSeverIP.Text, out ip))
-            //    {
-            //        IPEndPoint remoteEP = new IPEndPoint(ip, serverPort);
-
-            //        clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            //        clientSocket.BeginConnect(remoteEP, new AsyncCallback(ConnectCallBack), clientSocket);
-
-
-            //        connectDone.WaitOne();
-            //        Receive(clientSocket);
-
-
-            //        tabControl2.SelectedIndex = 1;
-            //        return;
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("请输入正确的ip地址或者端口号");
-            //    }
-
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.ToString());
-            //} 
-            #endregion
+           
 
             #region AT命令连接
 
@@ -501,7 +470,7 @@ namespace ESP8266
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (tabControl1.SelectedIndex==4)
+            //if (tabControl1.SelectedIndex == 5)
             //{
             //    tabControl2.SelectedIndex = 1;
             //}
@@ -660,6 +629,47 @@ namespace ESP8266
         {
             ComDataTransform(serialPort1, txtSendData.Text);
             ;
+        }
+
+        private void btnNetConnect_Click(object sender, EventArgs e)
+        {
+            #region sokect 连接
+            try
+            {
+                int serverPort = 0;
+                IPAddress ip;
+                if (int.TryParse(txtNetServerPort.Text, out serverPort) && IPAddress.TryParse(txtNetServerIp.Text, out ip))
+                {
+                    IPEndPoint remoteEP = new IPEndPoint(ip, serverPort);
+
+                    clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    clientSocket.BeginConnect(remoteEP, new AsyncCallback(ConnectCallBack), clientSocket);
+
+
+                    connectDone.WaitOne();
+                    Receive(clientSocket);
+
+
+                    tabControl2.SelectedIndex = 1;
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("请输入正确的ip地址或者端口号");
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            #endregion
+        }
+
+        private void btnNetServerStart_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
