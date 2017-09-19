@@ -45,6 +45,15 @@
             this.comBaudRate = new System.Windows.Forms.ComboBox();
             this.comPortName = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.comEncrypt = new System.Windows.Forms.ComboBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.txtWifiPwd = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.btnSetWifi = new System.Windows.Forms.Button();
+            this.txtWifiName = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.txtApTimeOut = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -129,6 +138,7 @@
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -326,6 +336,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Controls.Add(this.label23);
             this.tabPage2.Controls.Add(this.label21);
             this.tabPage2.Controls.Add(this.txtApTimeOut);
             this.tabPage2.Controls.Add(this.label5);
@@ -342,6 +354,107 @@
             this.tabPage2.Text = "AP模式";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.comEncrypt);
+            this.groupBox3.Controls.Add(this.label26);
+            this.groupBox3.Controls.Add(this.txtWifiPwd);
+            this.groupBox3.Controls.Add(this.label25);
+            this.groupBox3.Controls.Add(this.btnSetWifi);
+            this.groupBox3.Controls.Add(this.txtWifiName);
+            this.groupBox3.Controls.Add(this.label24);
+            this.groupBox3.Location = new System.Drawing.Point(32, 249);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(355, 116);
+            this.groupBox3.TabIndex = 10;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "设置Wifi";
+            // 
+            // comEncrypt
+            // 
+            this.comEncrypt.AutoCompleteCustomSource.AddRange(new string[] {
+            "300",
+            "600",
+            "1200",
+            "2400",
+            "4800",
+            "9600",
+            "14400",
+            "28800",
+            "36000",
+            "115200"});
+            this.comEncrypt.FormattingEnabled = true;
+            this.comEncrypt.Items.AddRange(new object[] {
+            "Open",
+            "WEP",
+            "WPA_PSK",
+            "WPA2_PSK",
+            "WPA_WPA2_PSK"});
+            this.comEncrypt.Location = new System.Drawing.Point(90, 75);
+            this.comEncrypt.Name = "comEncrypt";
+            this.comEncrypt.Size = new System.Drawing.Size(80, 20);
+            this.comEncrypt.TabIndex = 26;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(16, 78);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(53, 12);
+            this.label26.TabIndex = 11;
+            this.label26.Text = "加密方式";
+            // 
+            // txtWifiPwd
+            // 
+            this.txtWifiPwd.Location = new System.Drawing.Point(262, 29);
+            this.txtWifiPwd.Name = "txtWifiPwd";
+            this.txtWifiPwd.Size = new System.Drawing.Size(80, 21);
+            this.txtWifiPwd.TabIndex = 10;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(188, 32);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(53, 12);
+            this.label25.TabIndex = 9;
+            this.label25.Text = "Wifi密码";
+            // 
+            // btnSetWifi
+            // 
+            this.btnSetWifi.Location = new System.Drawing.Point(250, 69);
+            this.btnSetWifi.Name = "btnSetWifi";
+            this.btnSetWifi.Size = new System.Drawing.Size(76, 31);
+            this.btnSetWifi.TabIndex = 8;
+            this.btnSetWifi.Text = "设置Wifi";
+            this.btnSetWifi.UseVisualStyleBackColor = true;
+            this.btnSetWifi.Click += new System.EventHandler(this.btnSetWifi_Click);
+            // 
+            // txtWifiName
+            // 
+            this.txtWifiName.Location = new System.Drawing.Point(90, 29);
+            this.txtWifiName.Name = "txtWifiName";
+            this.txtWifiName.Size = new System.Drawing.Size(80, 21);
+            this.txtWifiName.TabIndex = 6;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(16, 32);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(53, 12);
+            this.label24.TabIndex = 1;
+            this.label24.Text = "Wifi名称";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(29, 212);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(101, 12);
+            this.label23.TabIndex = 17;
+            this.label23.Text = "(需要先开启服务)";
+            // 
             // label21
             // 
             this.label21.AutoSize = true;
@@ -353,7 +466,7 @@
             // 
             // txtApTimeOut
             // 
-            this.txtApTimeOut.Location = new System.Drawing.Point(110, 78);
+            this.txtApTimeOut.Location = new System.Drawing.Point(138, 199);
             this.txtApTimeOut.Name = "txtApTimeOut";
             this.txtApTimeOut.Size = new System.Drawing.Size(134, 21);
             this.txtApTimeOut.TabIndex = 15;
@@ -361,7 +474,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(30, 81);
+            this.label5.Location = new System.Drawing.Point(29, 193);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(77, 12);
             this.label5.TabIndex = 14;
@@ -369,7 +482,7 @@
             // 
             // btnApTimeOut
             // 
-            this.btnApTimeOut.Location = new System.Drawing.Point(285, 72);
+            this.btnApTimeOut.Location = new System.Drawing.Point(310, 193);
             this.btnApTimeOut.Name = "btnApTimeOut";
             this.btnApTimeOut.Size = new System.Drawing.Size(76, 31);
             this.btnApTimeOut.TabIndex = 13;
@@ -410,7 +523,7 @@
             this.groupBox7.Controls.Add(this.txtApPort);
             this.groupBox7.Controls.Add(this.btnApStartServer);
             this.groupBox7.Controls.Add(this.label12);
-            this.groupBox7.Location = new System.Drawing.Point(23, 137);
+            this.groupBox7.Location = new System.Drawing.Point(32, 62);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(355, 116);
             this.groupBox7.TabIndex = 9;
@@ -1176,6 +1289,8 @@
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.tabPage3.ResumeLayout(false);
@@ -1296,6 +1411,15 @@
         private System.Windows.Forms.Button btnDisConnect;
         private System.Windows.Forms.Button btnVersion;
         private System.Windows.Forms.Button btnQueryIp;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.ComboBox comEncrypt;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox txtWifiPwd;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Button btnSetWifi;
+        private System.Windows.Forms.TextBox txtWifiName;
+        private System.Windows.Forms.Label label24;
     }
 }
 

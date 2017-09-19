@@ -156,5 +156,12 @@ namespace ESP8266
 
         public readonly string QueryJionDevice = "AT+CWLIF";
 
+        public string SetWifi(string name, string pwd, int encrpt)
+        {
+            //"AT+CWSAP="ESP8266","0123456789",11,0"
+
+            return "AT+CWSAP=\"" + name + "\",\"" + pwd + "\"" + ",11," + encrpt;
+        }
+
     }
 }

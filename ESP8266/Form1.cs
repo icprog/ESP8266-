@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -31,6 +31,9 @@ namespace ESP8266
         public delegate void UpdateTxt(string msg,TextBox txtBox);
         //定义一个委托变量
         public UpdateTxt updateTxt;
+
+        private Thread ComReadThread;
+
 
    
         public Form1()
@@ -100,12 +103,15 @@ namespace ESP8266
                 if (this.serialPort1.IsOpen)
                 {
                     this.btnOpenCom.Text = "关闭端口";
-
+                    txtComRead.AppendText("串口已经打开");
                 }
                 else
                 {
 
                     this.btnOpenCom.Text = "打开端口";
+                    txtComRead.AppendText("串口已经关闭");
+                    this.txtComRead.SelectionStart = this.txtComRead.Text.Length;
+                    this.txtComRead.ScrollToCaret();
                 }
             }
             catch (Exception er)
@@ -118,7 +124,19 @@ namespace ESP8266
         {
 
             ComDataTransform(serialPort1, AT.WorkWay(comWorkWay.SelectedIndex + 1));
-            
+            if (comWorkWay.SelectedIndex==0)
+            {
+                tabControl1.SelectedIndex = 2;
+            }
+            if (comWorkWay.SelectedIndex == 1)
+            {
+                tabControl1.SelectedIndex =1;
+            }
+            if (comWorkWay.SelectedIndex == 2)
+            {
+                tabControl1.SelectedIndex =3;
+            }
+         
         }
 
         private void ComDataTransform(SerialPort port,string strWitr)
@@ -128,10 +146,15 @@ namespace ESP8266
                 txtComWrite.Text += strWitr + Environment.NewLine;
                 port.WriteLine(strWitr + Environment.NewLine);
                 //port.Write(strWitr);
-             
-                Thread.Sleep(200);
-                txtComRead.Text += port.ReadExisting() + Environment.NewLine;
-               
+                this.txtComWrite.SelectionStart = this.txtComWrite.Text.Length;
+                this.txtComWrite.ScrollToCaret();
+
+                //Thread.Sleep(200);
+                //txtComRead.Text += port.ReadExisting() + Environment.NewLine;
+                //this.txtComRead.SelectionStart = this.txtComRead.Text.Length;
+                //this.txtComRead.ScrollToCaret();
+
+
             }
             else
             {
@@ -245,7 +268,7 @@ namespace ESP8266
             int timeout = 0;
             if (int.TryParse(txtApTimeOut.Text,out timeout))
             {
-                ComDataTransform(serialPort1,timeout.ToString());
+                ComDataTransform(serialPort1,AT.Ap_ServerTimeOut(timeout));
             }
             else
             {
@@ -424,7 +447,9 @@ namespace ESP8266
         public void UpdateTxtMethod(string msg,TextBox txtBox)
         {
             txtBox.Text+= (Environment.NewLine+msg   );
-          
+
+            txtBox.SelectionStart = txtBox.Text.Length;
+         
             txtBox.ScrollToCaret();
         }
 
@@ -507,7 +532,41 @@ namespace ESP8266
         private void Form1_Load(object sender, EventArgs e)
         {
             comId.SelectedIndex = 0;
+            ComReadThread = new Thread(ComRead);
+            ComReadThread.Start();
         }
+
+
+
+        #region 监听串口线程调用的方法
+        private void ComRead()
+        {
+            while (true)
+            {
+                if (serialPort1.IsOpen)
+                {
+
+                    if (serialPort1.BytesToRead > 0)
+                    {
+                        string str = serialPort1.ReadExisting() + Environment.NewLine;
+
+                        if (txtComRead.InvokeRequired)
+                        {
+                            txtComRead.BeginInvoke(updateTxt, str, txtComRead);
+                        }
+                        else
+                        {
+                            txtComRead.AppendText(str);
+                            this.txtComRead.SelectionStart = this.txtComRead.Text.Length;
+                            this.txtComRead.ScrollToCaret();
+                        }
+                      
+                    }
+
+                }
+            }
+        } 
+        #endregion
 
         private void btnQueryIp_Click(object sender, EventArgs e)
         {
@@ -585,6 +644,11 @@ namespace ESP8266
         private void btnQueryDevice_Click(object sender, EventArgs e)
         {
             ComDataTransform(serialPort1, AT.QueryJionDevice);
+        }
+
+        private void btnSetWifi_Click(object sender, EventArgs e)
+        {
+            ComDataTransform(serialPort1, AT.SetWifi(txtWifiName.Text,txtWifiPwd.Text, comEncrypt.SelectedIndex));
         }
     }
 }
