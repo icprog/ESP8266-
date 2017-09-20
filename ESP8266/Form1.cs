@@ -29,13 +29,17 @@ namespace ESP8266
 
         //创建一个委托，是为访问TextBox控件服务的。
         public delegate void UpdateTxt(string msg,TextBox txtBox);
+        public delegate void UpdateListBox(string msg, ListBox txtBox);
         //定义一个委托变量
         public UpdateTxt updateTxt;
 
+        public UpdateListBox updateListBox;
+
         private Thread ComReadThread;
 
+        private Socket serverSocket;
+        private List<StateObject> ClientLists = new List<StateObject>();
 
-   
         public Form1()
         {
             InitializeComponent();
@@ -43,8 +47,13 @@ namespace ESP8266
             comBaudRate.SelectedIndex = 0;
             ScanCom();
             updateTxt = new UpdateTxt(UpdateTxtMethod);
-           
+            updateListBox=new UpdateListBox(UpdateListBoxMethod);
 
+        }
+
+        private void UpdateListBoxMethod(string msg, ListBox listbox)
+        {
+            listbox.Items.Add(msg);
         }
 
         private void ApendText(string msg, TextBox txtbox)
@@ -371,48 +380,7 @@ namespace ESP8266
             }
         }
 
-        private void ReceiveCallback(IAsyncResult ar)
-        {
-            try
-            {
-                StateObject state = null;
-                state = (StateObject)ar.AsyncState;
-                Socket server = state.workSocket;
-                if (state.workSocket.Connected)
-                {
-                    // 從主機端讀取資料
-                    int bytesRead = server.EndReceive(ar);
-                // 有資料
-                if (bytesRead > 0)
-                {
-                  
-                    String MSG = Encoding.ASCII.GetString(state.buffer);
-                    if (txtTcpRece.InvokeRequired)
-                    {
-                        txtTcpRece.BeginInvoke(updateTxt, MSG, txtTcpRece);
-                    }
-                    else
-                    {
-                        txtTcpRece.AppendText(MSG + Environment.NewLine);
-                    }
-                }
-                // 繼續等待主機回傳的資料
-                state.buffer =new byte[state.BufferSize];
-                
-                    state.workSocket.BeginReceive(state.buffer, 0, state.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
-                }
-                else
-                {
-                    txtTcpRece.BeginInvoke(updateTxt,Environment.NewLine+ "连接断开", txtTcpRece);
-                    
-                }
-              
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.ToString());
-            }
-        }
+    
         public void UpdateTxtMethod(string msg,TextBox txtBox)
         {
             txtBox.Text+= (Environment.NewLine+msg   );
@@ -443,13 +411,15 @@ namespace ESP8266
                 }
 
 
-                 if (clientSocket!=null )
+                byte[] byteData = Encoding.ASCII.GetBytes(txtSendCmd.Text.Trim());
+
+                if (clientSocket!=null && tabControl3.SelectedIndex==0)
               
                 {
 
                     if ( clientSocket.Connected)
                     {
-                        byte[] byteData = Encoding.ASCII.GetBytes(txtSendCmd.Text.Trim());
+                     
 
                         clientSocket.Send(byteData);
 
@@ -461,6 +431,29 @@ namespace ESP8266
                     }
                  
                 }
+                 else if(tabControl3.SelectedIndex == 1)
+                 {
+                     if (ClientLists.Count>0 && listBoxClient.Items.Count>0)
+                     {
+                         foreach (var clientList in ClientLists)
+                         {
+
+                             if (listBoxClient.SelectedItems.Count>0)
+                             {
+                                if (clientList.workSocket.LocalEndPoint.ToString() == listBoxClient.SelectedItem.ToString())
+                                {
+                                    if (clientList.workSocket.Connected)
+                                    {
+                                        clientList.workSocket.Send(byteData);
+                                    }
+                                }
+                            }
+                             
+                         }
+                     }
+
+                   
+                 }
             }
             catch (Exception ex)
             {
@@ -670,6 +663,126 @@ namespace ESP8266
         private void btnNetServerStart_Click(object sender, EventArgs e)
         {
 
+            int port = 0;
+            if (!int.TryParse(txtLocalServerPort.Text.Trim(),out port))
+            {
+                MessageBox.Show("请输入正确的端口号");
+                return;
+            }
+         
+            IPEndPoint localEP = new IPEndPoint(IPAddress.Any, port);
+            serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            try
+            {
+                serverSocket.Bind(localEP);
+                serverSocket.Listen(10);
+                txtTcpRece.AppendText("等待客户端连接");
+                serverSocket.BeginAccept(new AsyncCallback(ServerAcceptCallback), serverSocket);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+
+        
+        private void ServerAcceptCallback(IAsyncResult ar)
+        {
+            Socket handler = ((Socket)ar.AsyncState).EndAccept(ar);
+            StateObject user = new StateObject();
+            user.workSocket = handler;
+            // 添加 User 到 list
+            ClientLists.Add(user);
+            // 開始接收訊息
+            listBoxClient.Invoke(updateListBox, user.workSocket.LocalEndPoint.ToString(), listBoxClient);
+
+
+            user.workSocket.BeginReceive(user.buffer, 0, user.BufferSize, 0, new AsyncCallback(TcpServerReceiveCallback), user);
+            // 持續監聽
+            serverSocket.BeginAccept(new AsyncCallback(ServerAcceptCallback), serverSocket);
+        }
+
+        private void TcpServerReceiveCallback(IAsyncResult ar)
+        {
+            StateObject user = new StateObject();
+            user = (StateObject)ar.AsyncState;
+            Socket tmpSocket = user.workSocket;
+
+            // 從客戶端讀取資料
+            int bytesRead = user.workSocket.EndReceive(ar);
+            if (bytesRead > 0) // 有資料
+            {
+            
+                // 客戶端資料
+                String MSG = Encoding.ASCII.GetString(user.buffer);
+                txtTcpRece.Invoke(updateTxt, MSG, txtTcpRece);
+          
+            }
+            // 清除舊資料
+            user.buffer = new byte[1024];
+            // 等待客戶端再次傳送資料
+            user.workSocket.BeginReceive(user.buffer, 0, user.BufferSize, 0, new AsyncCallback(ReceiveCallback), user);
+        }
+    
+
+        private void ReceiveCallback(IAsyncResult ar)
+        {
+            try
+            {
+                StateObject state = null;
+                state = (StateObject)ar.AsyncState;
+                Socket server = state.workSocket;
+                if (state.workSocket.Connected)
+                {
+                    // 從主機端讀取資料
+                    int bytesRead = server.EndReceive(ar);
+                    // 有資料
+                    if (bytesRead > 0)
+                    {
+
+                        String MSG = Encoding.ASCII.GetString(state.buffer);
+                        if (txtTcpRece.InvokeRequired)
+                        {
+                            txtTcpRece.BeginInvoke(updateTxt, MSG, txtTcpRece);
+                        }
+                        else
+                        {
+                            txtTcpRece.AppendText(MSG + Environment.NewLine);
+                        }
+                    }
+                    // 繼續等待主機回傳的資料
+                    state.buffer = new byte[state.BufferSize];
+
+                    state.workSocket.BeginReceive(state.buffer, 0, state.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
+                }
+                else
+                {
+                    txtTcpRece.BeginInvoke(updateTxt, Environment.NewLine + "连接断开", txtTcpRece);
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
+
+        private void btnBrodcast_Click(object sender, EventArgs e)
+        {
+            byte[] byteData = Encoding.ASCII.GetBytes(txtSendCmd.Text);
+            // 發佈給所有已連線的客戶端
+            foreach (var c in ClientLists)
+            {
+                if (c.workSocket.Connected)
+                {
+                    c.workSocket.Send(byteData);
+                }
+             
+            }
+           
         }
     }
 }

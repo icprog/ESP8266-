@@ -141,18 +141,21 @@
             this.comPortName = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.btnBrodcast = new System.Windows.Forms.Button();
+            this.tabControl3 = new System.Windows.Forms.TabControl();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
             this.label31 = new System.Windows.Forms.Label();
             this.txtNetServerPort = new System.Windows.Forms.TextBox();
-            this.label32 = new System.Windows.Forms.Label();
             this.txtNetServerIp = new System.Windows.Forms.TextBox();
             this.btnNetConnect = new System.Windows.Forms.Button();
+            this.label32 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
+            this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.listBoxClient = new System.Windows.Forms.ListBox();
+            this.label34 = new System.Windows.Forms.Label();
             this.txtLocalServerPort = new System.Windows.Forms.TextBox();
             this.label35 = new System.Windows.Forms.Label();
             this.btnNetServerStart = new System.Windows.Forms.Button();
-            this.tabControl3 = new System.Windows.Forms.TabControl();
-            this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.tabPage10 = new System.Windows.Forms.TabPage();
             this.tabControl2.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.tabPage6.SuspendLayout();
@@ -340,7 +343,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(246, 142);
+            this.label20.Location = new System.Drawing.Point(247, 160);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(53, 12);
             this.label20.TabIndex = 30;
@@ -348,11 +351,11 @@
             // 
             // txtTcpRece
             // 
-            this.txtTcpRece.Location = new System.Drawing.Point(234, 157);
+            this.txtTcpRece.Location = new System.Drawing.Point(234, 185);
             this.txtTcpRece.Multiline = true;
             this.txtTcpRece.Name = "txtTcpRece";
             this.txtTcpRece.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtTcpRece.Size = new System.Drawing.Size(207, 211);
+            this.txtTcpRece.Size = new System.Drawing.Size(207, 183);
             this.txtTcpRece.TabIndex = 29;
             // 
             // btnTcpClearSend
@@ -367,9 +370,9 @@
             // 
             // txtTcpSend
             // 
-            this.txtTcpSend.Location = new System.Drawing.Point(133, 384);
+            this.txtTcpSend.Location = new System.Drawing.Point(92, 384);
             this.txtTcpSend.Name = "txtTcpSend";
-            this.txtTcpSend.Size = new System.Drawing.Size(76, 31);
+            this.txtTcpSend.Size = new System.Drawing.Size(67, 31);
             this.txtTcpSend.TabIndex = 26;
             this.txtTcpSend.Text = "发送";
             this.txtTcpSend.UseVisualStyleBackColor = true;
@@ -378,7 +381,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(8, 142);
+            this.label19.Location = new System.Drawing.Point(18, 160);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(53, 12);
             this.label19.TabIndex = 25;
@@ -386,11 +389,11 @@
             // 
             // txtSendCmd
             // 
-            this.txtSendCmd.Location = new System.Drawing.Point(6, 157);
+            this.txtSendCmd.Location = new System.Drawing.Point(6, 185);
             this.txtSendCmd.Multiline = true;
             this.txtSendCmd.Name = "txtSendCmd";
             this.txtSendCmd.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtSendCmd.Size = new System.Drawing.Size(213, 211);
+            this.txtSendCmd.Size = new System.Drawing.Size(213, 183);
             this.txtSendCmd.TabIndex = 24;
             // 
             // btnReBoot
@@ -423,7 +426,7 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(410, 371);
+            this.tabPage6.Size = new System.Drawing.Size(456, 421);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "常用命令";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -589,7 +592,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(410, 371);
+            this.tabPage4.Size = new System.Drawing.Size(456, 421);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "AP兼Station模式";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -664,7 +667,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(410, 371);
+            this.tabPage3.Size = new System.Drawing.Size(456, 421);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Station模式";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -938,7 +941,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(410, 371);
+            this.tabPage2.Size = new System.Drawing.Size(456, 421);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "AP模式";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1173,7 +1176,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(410, 371);
+            this.tabPage1.Size = new System.Drawing.Size(456, 421);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "串口";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1350,6 +1353,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.btnBrodcast);
             this.tabPage5.Controls.Add(this.btnTcpClearRece);
             this.tabPage5.Controls.Add(this.tabControl3);
             this.tabPage5.Controls.Add(this.txtTcpRece);
@@ -1365,6 +1369,42 @@
             this.tabPage5.TabIndex = 6;
             this.tabPage5.Text = "网络测试";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // btnBrodcast
+            // 
+            this.btnBrodcast.Location = new System.Drawing.Point(168, 384);
+            this.btnBrodcast.Name = "btnBrodcast";
+            this.btnBrodcast.Size = new System.Drawing.Size(67, 31);
+            this.btnBrodcast.TabIndex = 32;
+            this.btnBrodcast.Text = "广播";
+            this.btnBrodcast.UseVisualStyleBackColor = true;
+            this.btnBrodcast.Click += new System.EventHandler(this.btnBrodcast_Click);
+            // 
+            // tabControl3
+            // 
+            this.tabControl3.Controls.Add(this.tabPage9);
+            this.tabControl3.Controls.Add(this.tabPage10);
+            this.tabControl3.Location = new System.Drawing.Point(6, 6);
+            this.tabControl3.Name = "tabControl3";
+            this.tabControl3.SelectedIndex = 0;
+            this.tabControl3.Size = new System.Drawing.Size(444, 151);
+            this.tabControl3.TabIndex = 15;
+            // 
+            // tabPage9
+            // 
+            this.tabPage9.Controls.Add(this.label31);
+            this.tabPage9.Controls.Add(this.txtNetServerPort);
+            this.tabPage9.Controls.Add(this.txtNetServerIp);
+            this.tabPage9.Controls.Add(this.btnNetConnect);
+            this.tabPage9.Controls.Add(this.label32);
+            this.tabPage9.Controls.Add(this.label33);
+            this.tabPage9.Location = new System.Drawing.Point(4, 22);
+            this.tabPage9.Name = "tabPage9";
+            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage9.Size = new System.Drawing.Size(436, 125);
+            this.tabPage9.TabIndex = 0;
+            this.tabPage9.Text = "Client";
+            this.tabPage9.UseVisualStyleBackColor = true;
             // 
             // label31
             // 
@@ -1383,15 +1423,6 @@
             this.txtNetServerPort.Size = new System.Drawing.Size(148, 21);
             this.txtNetServerPort.TabIndex = 8;
             // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(22, 52);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(113, 12);
-            this.label32.TabIndex = 7;
-            this.label32.Text = "TCP Server的端口号";
-            // 
             // txtNetServerIp
             // 
             this.txtNetServerIp.Location = new System.Drawing.Point(141, 12);
@@ -1409,6 +1440,15 @@
             this.btnNetConnect.UseVisualStyleBackColor = true;
             this.btnNetConnect.Click += new System.EventHandler(this.btnNetConnect_Click);
             // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(22, 52);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(113, 12);
+            this.label32.TabIndex = 7;
+            this.label32.Text = "TCP Server的端口号";
+            // 
             // label33
             // 
             this.label33.AutoSize = true;
@@ -1418,9 +1458,43 @@
             this.label33.TabIndex = 1;
             this.label33.Text = "TCP Server的IP地址";
             // 
+            // tabPage10
+            // 
+            this.tabPage10.Controls.Add(this.listBoxClient);
+            this.tabPage10.Controls.Add(this.label34);
+            this.tabPage10.Controls.Add(this.txtLocalServerPort);
+            this.tabPage10.Controls.Add(this.label35);
+            this.tabPage10.Controls.Add(this.btnNetServerStart);
+            this.tabPage10.Location = new System.Drawing.Point(4, 22);
+            this.tabPage10.Name = "tabPage10";
+            this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage10.Size = new System.Drawing.Size(436, 125);
+            this.tabPage10.TabIndex = 1;
+            this.tabPage10.Text = "Server";
+            this.tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // listBoxClient
+            // 
+            this.listBoxClient.Font = new System.Drawing.Font("Microsoft JhengHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.listBoxClient.FormattingEnabled = true;
+            this.listBoxClient.ItemHeight = 16;
+            this.listBoxClient.Location = new System.Drawing.Point(142, 45);
+            this.listBoxClient.Name = "listBoxClient";
+            this.listBoxClient.Size = new System.Drawing.Size(268, 68);
+            this.listBoxClient.TabIndex = 27;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(23, 77);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(77, 12);
+            this.label34.TabIndex = 26;
+            this.label34.Text = "连接的客户端";
+            // 
             // txtLocalServerPort
             // 
-            this.txtLocalServerPort.Location = new System.Drawing.Point(158, 30);
+            this.txtLocalServerPort.Location = new System.Drawing.Point(142, 12);
             this.txtLocalServerPort.Name = "txtLocalServerPort";
             this.txtLocalServerPort.Size = new System.Drawing.Size(148, 21);
             this.txtLocalServerPort.TabIndex = 8;
@@ -1428,7 +1502,7 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(23, 30);
+            this.label35.Location = new System.Drawing.Point(23, 15);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(113, 12);
             this.label35.TabIndex = 7;
@@ -1436,52 +1510,13 @@
             // 
             // btnNetServerStart
             // 
-            this.btnNetServerStart.Location = new System.Drawing.Point(336, 24);
+            this.btnNetServerStart.Location = new System.Drawing.Point(317, 6);
             this.btnNetServerStart.Name = "btnNetServerStart";
             this.btnNetServerStart.Size = new System.Drawing.Size(56, 31);
             this.btnNetServerStart.TabIndex = 5;
             this.btnNetServerStart.Text = "启动";
             this.btnNetServerStart.UseVisualStyleBackColor = true;
             this.btnNetServerStart.Click += new System.EventHandler(this.btnNetServerStart_Click);
-            // 
-            // tabControl3
-            // 
-            this.tabControl3.Controls.Add(this.tabPage9);
-            this.tabControl3.Controls.Add(this.tabPage10);
-            this.tabControl3.Location = new System.Drawing.Point(6, 6);
-            this.tabControl3.Name = "tabControl3";
-            this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(444, 124);
-            this.tabControl3.TabIndex = 15;
-            // 
-            // tabPage9
-            // 
-            this.tabPage9.Controls.Add(this.label31);
-            this.tabPage9.Controls.Add(this.txtNetServerPort);
-            this.tabPage9.Controls.Add(this.txtNetServerIp);
-            this.tabPage9.Controls.Add(this.btnNetConnect);
-            this.tabPage9.Controls.Add(this.label32);
-            this.tabPage9.Controls.Add(this.label33);
-            this.tabPage9.Location = new System.Drawing.Point(4, 22);
-            this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(436, 98);
-            this.tabPage9.TabIndex = 0;
-            this.tabPage9.Text = "Client";
-            this.tabPage9.UseVisualStyleBackColor = true;
-            // 
-            // tabPage10
-            // 
-            this.tabPage10.Controls.Add(this.txtLocalServerPort);
-            this.tabPage10.Controls.Add(this.label35);
-            this.tabPage10.Controls.Add(this.btnNetServerStart);
-            this.tabPage10.Location = new System.Drawing.Point(4, 22);
-            this.tabPage10.Name = "tabPage10";
-            this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage10.Size = new System.Drawing.Size(436, 98);
-            this.tabPage10.TabIndex = 1;
-            this.tabPage10.Text = "Server";
-            this.tabPage10.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -1660,6 +1695,9 @@
         private System.Windows.Forms.TabControl tabControl3;
         private System.Windows.Forms.TabPage tabPage9;
         private System.Windows.Forms.TabPage tabPage10;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.ListBox listBoxClient;
+        private System.Windows.Forms.Button btnBrodcast;
     }
 }
 
